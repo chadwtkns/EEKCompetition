@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="EEKApp">
 <head>
   <meta charset="UTF-8">
   <title>EEK Competition</title>
 </head>
 <body>
-  <div>This is the index file</div>
+  <div ng-view></div>
+
+  <!-- stylesheets -->
+  <link async rel="stylesheet" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css">
+
+    <!-- angularjs -->
+  <script defer src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  <script defer src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.min.js"></script>
+  <script defer src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-resource.min.js"></script>
+  <script defer src="js/app.min.js"></script>
 </body>
 </html>

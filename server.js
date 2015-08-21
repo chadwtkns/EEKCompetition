@@ -4,18 +4,19 @@ var app = express();
 var routes = require('./routes/index');
 //var passport = require('passport');
 //var cookieParser = require('cookie-parser');
-//var bodyParser = require('body-parser');
-//var helmet = require('helmet');
+var bodyParser = require('body-parser');
+var helmet = require('helmet');
 //var session = require('express-session');
 //var csurf = require('csurf');
+var r = require('rethinkdb');
 
 
 //// uses mongoose connect to our database
 //mongoose.connect('mongodb://localhost/cat-test');
 //require('./auth/passport')(passport); // pass passport for configuration
 //
-//// helmet helps stop XSS attacks, uses several other pieces of middleware, if you want more info look at https://github.com/helmetjs/helmet
-//app.use(helmet());
+// helmet helps stop XSS attacks, uses several other pieces of middleware, if you want more info look at https://github.com/helmetjs/helmet
+app.use(helmet());
 //
 //// configure app to use bodyParser()
 //// this will let us get the data from a POST

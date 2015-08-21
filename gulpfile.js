@@ -78,7 +78,7 @@ gulp.task('min-css', ['sass'], function() {
 
 // Minify JS & concatenate
 gulp.task('min-js', function() {
-    gulp.src('js/**/*.js')
+    gulp.src('src/js/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(ngAnnotate())
@@ -108,11 +108,11 @@ gulp.task('watch', function() {
                 'libs/**/*.php'],
               ['min-php']);
     gulp.watch(['libs/**/*.js',
-                'js/**/*.js'],
+                'src/js/**/*.js'],
               ['min-js']);
     gulp.watch(['templates/**/*.html',
-                'partials/**/*.html',
-                '*.html'],
+                'src/partials/**/*.html',
+                'src/*.html'],
               ['min-html']);
 });
 
