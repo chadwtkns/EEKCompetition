@@ -1,0 +1,54 @@
+{
+  "competitions":[
+    {
+      "id": 1,
+      "competition": "Educate and Empower Challenge 2015",
+      "startDate": "2015-10-1",
+      "endDate": "2015-12-1",
+      "winner":[
+        {
+          "firstName": "Chad",
+          "lastName": "Watkins",
+          "email": "chadwtkns@gmail.com",
+          "phone": "801-380-0096",
+          "age": 26,
+          "gender": "M"
+        }
+      ]
+    }
+  ]
+}
+
+//Seperate File
+{
+  "videos": [
+    {
+      "id": 234234,
+      "competition_id": 1,
+      "title": "My Awesome Video",
+      "firstName": "Chad",
+      "lastName": "Watkins"
+      "status":"approved",
+      "comments": [
+        {
+          "email": "sadj25@gmail.com",
+          "status": "pending",
+          "comment": "My Husband is awesome"
+        }
+      ]
+    }
+  ]
+}
+
+//Seperate File
+{
+  "users":[
+    {
+    "firstName": "Cristina",
+    "lastName": "Alexander",
+    "role": "admin",
+    "password": "12j1lfwkhk1h3kjhfw",
+    "salt": "1234fkjhfsajlfks"
+    }
+  ]
+}

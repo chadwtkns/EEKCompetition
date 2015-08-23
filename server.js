@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var helmet = require('helmet');
 //var session = require('express-session');
 //var csurf = require('csurf');
-var r = require('rethinkdb');
+var fs = require('fs');
 
 
 //// uses mongoose connect to our database

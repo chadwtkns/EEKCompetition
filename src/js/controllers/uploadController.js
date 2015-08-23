@@ -3,7 +3,7 @@
     .controller('uploadController', function($scope, $filter, videoService) {
 
       var allVidPromise = videoService.getVideos();
-      allVidPromise.get(function (data) {
+      allVidPromise.query(function (data) {
         $scope.allVids = data;
       });
 
