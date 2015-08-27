@@ -7,6 +7,23 @@
         $scope.allVids = data;
       });
 
+      $scope.submit = function () {
+        var data = {
+          "firstName": $scope.uploadVideoForm.firstName,
+          "lastName": $scope.uploadVideoForm.lastName,
+          "email": $scope.uploadVideoForm.email
+        };
+        var tmp = videoService.postVideos();
+
+        tmp.save(
+          data,
+          function (data) {
+            console.log(data);
+
+          },function (error) {
+            console.log(error);
+          });
+      };
     }
   );
 }());

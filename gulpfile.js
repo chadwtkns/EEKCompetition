@@ -19,7 +19,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 
 // ruby sass
 gulp.task('sass', function() {
-   return sass('scss/', {"noCache":true})
+   return sass('src/scss/', {"noCache":true})
      .on('error', function (err) {
        console.error('Error!', err.message);
      })
@@ -49,16 +49,6 @@ gulp.task('min-html', function() {
     gulp.src('src/templates/*.html')
         .pipe(minifyHTML(opts))
         .pipe(gulp.dest('www/templates'));
-});
-
-// Minify PHP
-gulp.task('min-php', function() {
-    gulp.src('php/**/*.php')
-      .pipe(strip())
-      .pipe(htmlclean())
-      .pipe(gulp.dest('www/php'));
-    gulp.src('libs/**/*.php')
-       .pipe(gulp.dest('www/libs'));
 });
 
 // Minify JSON
@@ -104,9 +94,6 @@ gulp.task('watch', function() {
     gulp.watch('css/*.css', ['min-css']);
     gulp.watch('json/**/*.json', ['min-json']);
     gulp.watch('scss/**/*.scss', ['sass']);
-    gulp.watch(['php/**/*.php',
-                'libs/**/*.php'],
-              ['min-php']);
     gulp.watch(['libs/**/*.js',
                 'src/js/**/*.js'],
               ['min-js']);
@@ -127,4 +114,4 @@ gulp.task('docs', function () {
 });
 
 // Default Task
-gulp.task('default', ['min-html', 'min-css', 'min-js', 'min-json', 'min-php', 'copy', 'watch']);
+gulp.task('default', ['min-html', 'min-css', 'min-js', 'watch']);

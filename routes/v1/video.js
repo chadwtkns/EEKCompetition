@@ -21,6 +21,22 @@ router.route('/')
       });
     });
   });
+})
+.post(function (req, res, next) {
+ var formItem = req.body;
+    r.connect({ host: 'localhost', port: 28015, db: 'EEKTest' }, function(err, conn) {
+
+    if(err) {return next(err);}
+
+    formItem.createdAt = r.now();
+
+    r.table('videos').insert(formItem, {returnChanges: true}).run(conn, function(err, result) {
+      if(err) {
+        return next(err);
+      }
+      res.json(result.changes[0].new_val);
+    });
+  });
 });
 
 

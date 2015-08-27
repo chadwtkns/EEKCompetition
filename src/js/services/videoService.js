@@ -5,6 +5,9 @@
                 return {
                     getVideos: function () {
                         return $resource('/v1/video');
+                    },
+                    postVideos: function () {
+                        return $resource('/v1/video');
                     }
                 };
         });
