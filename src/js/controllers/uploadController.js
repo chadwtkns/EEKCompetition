@@ -8,7 +8,7 @@
       });
 
       $scope.submit = function () {
-        var data = {
+          var data = {
           "firstName": $scope.uploadVideoForm.firstName,
           "lastName": $scope.uploadVideoForm.lastName,
           "email": $scope.uploadVideoForm.email

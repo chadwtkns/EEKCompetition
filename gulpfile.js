@@ -93,7 +93,7 @@ gulp.task('copy', function () {
 gulp.task('watch', function() {
     gulp.watch('css/*.css', ['min-css']);
     gulp.watch('json/**/*.json', ['min-json']);
-    gulp.watch('scss/**/*.scss', ['sass']);
+    gulp.watch('src/scss/**/*.scss', ['sass']);
     gulp.watch(['libs/**/*.js',
                 'src/js/**/*.js'],
               ['min-js']);
