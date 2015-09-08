@@ -9,7 +9,11 @@ var helmet = require('helmet');
 //var session = require('express-session');
 //var csurf = require('csurf');
 var fs = require('fs');
+var dir = './uploads';
 
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 //// uses mongoose connect to our database
 //mongoose.connect('mongodb://localhost/cat-test');
