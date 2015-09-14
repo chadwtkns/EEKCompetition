@@ -3,16 +3,12 @@ var r = require('rethinkdb');
 var formidable = require('formidable');
 var fs = require('fs');
 var path = require('path');
-
+var config = require('../../config').development;
 
 router.route('/')
 
 .get(function (req, res, next) {
-    r.connect({
-      host: 'localhost',
-      port: 28015,
-      db: 'EEKTest'
-    }, function (err, conn) {
+    r.connect(config, function (err, conn) {
 
       if (err) {
         return next(err);
@@ -50,8 +46,8 @@ router.route('/')
         new_path = path.join(process.env.PWD, '/uploads/', file_name + '.' + file_ext);
 
       fs.readFile(old_path, function (err, data) {
-        console.log(files.file);
-        console.log(file_ext);
+//        console.log(files.file);
+//        console.log(file_ext);
         if (files.file.size <= 0){
           res.status(401);
           res.json({
@@ -73,8 +69,8 @@ router.route('/')
           });
           return;
         }
-        // File size limit of 15MB
-        if (files.file.size > 15728640) {
+        // File size limit of 20MB or 15MB:15728640
+        if (files.file.size > 20971520) {
           res.status(401);
           res.json({
             'reason': 'file size is too big'
@@ -84,26 +80,37 @@ router.route('/')
 
         fs.writeFile(new_path, data, function (err) {
           fs.unlink(old_path, function (err) {
+            var ALPHABET = '23456789bdefghijkmnpqrtuvwxyzBDEFGHIJKMNPQRTUVWXYZ';
+            var idLength = 6;
+            var i;
+            var generate = function() {
+              var rtn = '';
+              for (i = 0; i < idLength; i += 1) {
+                rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
+              }
+              return rtn;
+            };
             if (err) {
               res.status(401);
               res.json({
                 'success': false
               });
             } else {
-              r.connect({
-                host: 'localhost',
-                port: 28015,
-                db: 'EEKTest'
-              }, function (err, conn) {
+              r.connect(config, function (err, conn) {
 
                 if (err) {
                   return next(err);
                 }
+
+                fields.shortId = generate();
+
                 fields.uploadedFileName = file_name + '.' + file_ext;
 
                 fields.createdAt = r.now();
 
                 fields.approved = 0;
+
+                fields.votes = 0;
 
                 r.table('videos').insert(fields, {
                   returnChanges: true
@@ -111,7 +118,7 @@ router.route('/')
                   if (err) {
                     return next(err);
                   }
-                  res.json(result.changes[0].new_val);
+                  res.redirect('/#/');
                 });
               });
             }
@@ -120,10 +127,82 @@ router.route('/')
       });
     });
   });
+router.param('id', function (req, res, next, id) {
+  req.videoId = id;
+  next();
+});
 
+router.route('/:id')
+.get(function (req, res, next) {
+      r.connect(config, function (err, conn) {
 
-router.all('/:id', function (req, res, next) {
+      if (err) {
+        return next(err);
+      }
 
+      r.table('videos').filter({
+        shortId: req.videoId
+      }).run(conn, function (err, cursor) {
+        if (err) {
+          return next(err);
+        }
+        cursor.toArray(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+//          console.log(result[0].uploadedFileName);
+          res.json(result);
+//          var options = {
+//            root: __dirname + '../../../uploads/',
+//            dotfiles: 'deny',
+//            headers: {
+//                'x-timestamp': Date.now(),
+//                'x-sent': true
+//            }
+//          };
+//          res.sendFile(result[0].uploadedFileName, options, function (err) {
+//            if (err) {
+//              console.log(err);
+//              res.status(err.status).end();
+//            }
+//            else {
+//              console.log('Sent:', result[0].uploadedFileName);
+//            }
+//          });
+
+        });
+      });
+    });
+})
+
+.put(function (req, res, next) {
+  console.log("Still here");
+  //TODO check if votes exists or not
+  var voteUpdated = {votes: req.body.votes + 1};
+  console.log(req.videoId);
+  r.connect(config, function (err, conn) {
+
+      if (err) {
+        return next(err);
+      }
+
+      r.table('videos').filter({
+        shortId: req.videoId
+      }).update(voteUpdated).run(conn, function (err, result) {
+        if (err) {
+          return next(err);
+        }
+        res.json(result);
+//        cursor.toArray(function (err, result) {
+//          if (err) {
+//            return next(err);
+//          }
+//          res.json(result);
+//
+//
+//        });
+      });
+    });
 });
 
 router.all(':id/comment/:id', function (req, res, next) {
