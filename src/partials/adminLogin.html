@@ -1,7 +1,7 @@
 <div>
-  <form ng-submit="adminLogin">
-    <label for="">Email Address: </label><input type="email" name="" id="">
-    <label for="">Password: </label><input type="password" name="" id="">
+  <form name="loginForm" ng-submit="adminLogin()">
+    <label for="">Email Address: </label><input type="email" ng-model="loginForm.email" required>
+    <label for="">Password: </label><input type="password" ng-model="loginForm.password" required>
     <input type="submit">
   </form>
 
