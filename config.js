@@ -1,11 +1,18 @@
 config = {
-  production: {},
+  production: {
+    database: {
+      host: '',
+      port: 28015,
+      db: ''
+    }
+  },
   development: {
-    host: 'localhost',
-    port: 28015,
-    db: 'EEKTest'
-  }
-
-}
+    database: {
+        host: 'localhost',
+        port: 28015,
+        db: 'EEKTest'
+      }
+    }
+};
 
 module.exports = config;

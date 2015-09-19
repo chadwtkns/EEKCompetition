@@ -9,7 +9,7 @@
   <source src="{{getIframeSrc(playable)}}" type="video/quicktime">
 </video>
 -->
-
+<div ng-if="error" ng-bind="error"></div>
 </div>
-
+<input type="email" ng-model="participantEmail">
 <button ng-click="videoVotes(votes)">Votes:<span ng-bind="votes"></span></button>

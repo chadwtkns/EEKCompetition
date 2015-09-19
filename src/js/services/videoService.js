@@ -21,7 +21,7 @@
       .factory('updateService', function($resource){
         return $resource('/v1/video/:id', null,
         {
-            'update': { method:'PUT' }
+            'update': { method:'PUT', isArray: true }
         });
 
       });

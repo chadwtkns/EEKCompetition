@@ -3,7 +3,7 @@ var app = express();
 //var mongoose = require('mongoose');
 var routes = require('./routes/index');
 //var passport = require('passport');
-//var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
 //var session = require('express-session');
@@ -28,7 +28,7 @@ app.use(helmet());
 //    extended: true
 //}));
 app.use(bodyParser.json());
-//app.use(cookieParser());
+app.use(cookieParser('Metroid Prime is the #1 game of all time'));
 //
 //app.use(session({
 //    secret: 'thisismysecret',

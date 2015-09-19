@@ -15,9 +15,17 @@
       });
       $scope.videoVotes = function (votes) {
         var voteObj = {
-          votes : votes
+          votes : votes,
+          email : $scope.participantEmail
         };
-       updateService.update({ id:$routeParams.videoId }, voteObj);
+       var updatedStuff = updateService.update({ id:$routeParams.videoId }, voteObj);
+//        console.log(up);
+        updatedStuff.$promise.then(function(data){
+          $scope.error = data[0].voteError;
+          console.log('hit');
+          console.log(data[0].votes);
+          $scope.votes = data[0].votes;
+        });
       };
 //      console.log($scope.test);
     }

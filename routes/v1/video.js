@@ -5,10 +5,13 @@ var fs = require('fs');
 var path = require('path');
 var config = require('../../config').development;
 
+var cookieValue = 1;
+
+
 router.route('/')
 
 .get(function (req, res, next) {
-    r.connect(config, function (err, conn) {
+    r.connect(config.database, function (err, conn) {
 
       if (err) {
         return next(err);
@@ -96,7 +99,7 @@ router.route('/')
                 'success': false
               });
             } else {
-              r.connect(config, function (err, conn) {
+              r.connect(config.database, function (err, conn) {
 
                 if (err) {
                   return next(err);
@@ -134,7 +137,7 @@ router.param('id', function (req, res, next, id) {
 
 router.route('/:id')
 .get(function (req, res, next) {
-      r.connect(config, function (err, conn) {
+      r.connect(config.database, function (err, conn) {
 
       if (err) {
         return next(err);
@@ -176,31 +179,53 @@ router.route('/:id')
 })
 
 .put(function (req, res, next) {
-  console.log("Still here");
   //TODO check if votes exists or not
+  console.log('hit begin put');
+  if (req.signedCookies.rememberme >= 3) {
+    console.log('hit if signedCookies');
+    return res.json([{voteError:'You have exceeded your vote limit'}]);
+  }
   var voteUpdated = {votes: req.body.votes + 1};
-  console.log(req.videoId);
-  r.connect(config, function (err, conn) {
-
+  r.connect(config.database, function (err, conn) {
+    console.log('hit config connect');
       if (err) {
         return next(err);
       }
-
+      if (req.body.votes === true) {
+        console.log('hit if votes');
+        r.table('emailCheck').insert({email: req.body.email})
+          .run(conn, function (err, result) {
+            r.table('emailCheck').filter({email: req.body.email}).count()
+              .run(conn, function (err, result) {
+                if(result > 3) {
+                  return res.json([{voteError:'You have exceeded your vote limit'}]);
+                }
+            });
+        });
+      }
       r.table('videos').filter({
         shortId: req.videoId
       }).update(voteUpdated).run(conn, function (err, result) {
         if (err) {
           return next(err);
         }
-        res.json(result);
-//        cursor.toArray(function (err, result) {
-//          if (err) {
-//            return next(err);
-//          }
-//          res.json(result);
-//
-//
-//        });
+        r.table('videos').filter({
+          shortId: req.videoId
+        }).pluck('votes').run(conn, function (err, cursor) {
+        if (err) {
+          return next(err);
+        }
+        cursor.toArray(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+
+          res.cookie('rememberme', cookieValue, { expires: new Date(Date.now() + 900000), httpOnly: true, signed: true });
+          cookieValue += 1;
+          res.json(result);
+
+          });
+        });
       });
     });
 });
