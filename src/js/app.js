@@ -12,6 +12,14 @@
       templateUrl: 'partials/upload.html',
       controller: 'uploadController'
     })
+    .when('/admin/login',{
+      templateUrl: 'partials/adminLogin.html',
+      controller: 'adminController' // IDEA Switch to a login controller
+    })
+    .when('/admin/dashboard',{
+      templateUrl: 'partials/adminDashboard.html',
+      controller: 'adminController'
+    })
     .when('/video/:videoId', {
       templateUrl: 'partials/participantVideo.html',
       controller: 'participantVideoController'

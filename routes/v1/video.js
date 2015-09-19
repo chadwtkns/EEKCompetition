@@ -179,20 +179,18 @@ router.route('/:id')
 })
 
 .put(function (req, res, next) {
-  //TODO check if votes exists or not
-  console.log('hit begin put');
+  if (!req.body.votes) {
+    return res.json([{voteError: 'No vote was cast'}]);
+  }
   if (req.signedCookies.rememberme >= 3) {
-    console.log('hit if signedCookies');
     return res.json([{voteError:'You have exceeded your vote limit'}]);
   }
   var voteUpdated = {votes: req.body.votes + 1};
   r.connect(config.database, function (err, conn) {
-    console.log('hit config connect');
       if (err) {
         return next(err);
       }
-      if (req.body.votes === true) {
-        console.log('hit if votes');
+      if (req.body.votes !== undefined) {
         r.table('emailCheck').insert({email: req.body.email})
           .run(conn, function (err, result) {
             r.table('emailCheck').filter({email: req.body.email}).count()
