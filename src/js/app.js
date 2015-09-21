@@ -14,7 +14,7 @@
     })
     .when('/admin/login',{
       templateUrl: 'partials/adminLogin.html',
-      controller: 'loginController' 
+      controller: 'loginController'
     })
     .when('/admin/dashboard',{
       templateUrl: 'partials/adminDashboard.html',
@@ -26,5 +26,5 @@
     });
   });
   angular.module('EEK.controllers', []);
-  angular.module('EEK.services', ['ngResource']);
+  angular.module('EEK.services', ['ngResource','ngCookies']);
 }());

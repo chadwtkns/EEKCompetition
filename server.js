@@ -6,7 +6,7 @@ var routes = require('./routes/index');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
-//var session = require('express-session');
+var session = require('express-session');
 //var csurf = require('csurf');
 var fs = require('fs');
 var dir = './uploads';
@@ -28,13 +28,13 @@ app.use(helmet());
 //    extended: true
 //}));
 app.use(bodyParser.json());
-app.use(cookieParser('Metroid Prime is the #1 game of all time'));
+app.use(cookieParser('Metroid Prime is the #1 ga3e of all time'));
 //
-//app.use(session({
-//    secret: 'thisismysecret',
+// app.use(session({
+//    secret: 'Metroid Prime is the #1 ga3e of all time',
 //    saveUninitialized: true,
 //    resave: false
-//}));
+// }));
 //// Initialize Passport!  Also use passport.session() middleware, to support
 //// persistent login sessions (recommended).
 //app.use(passport.initialize());

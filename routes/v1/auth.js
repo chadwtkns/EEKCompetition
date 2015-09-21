@@ -51,23 +51,21 @@ router.post('/login', function(req, res, next) {
         if (err) {
           return next(err);
         }
-        console.log(result[0].password);
-        console.log(req.body.password);
+
         if(result.length == -1) {
           return res.json({error: 'Wrong email or password'});
         }
-        //TODO check for empty array if email does not match
-        bcrypt.compare(req.body.password,result[0].password, function (err, result) {
-          if (result === false) {
-            console.log(result);
+        bcrypt.compare(req.body.password,result[0].password, function (err, compared) {
+          if (compared === false) {
             return res.json({success: false});
           }
           else {
+            //expires in 15 minutes
+            res.cookie('UCookie', result[0].role, { expires: new Date(Date.now() + 900000), httpOnly: true, signed: true });
+            res.cookie('ICookie', 'adminView', { expires: new Date(Date.now() + 900000)});
             res.json({success: true});
           }
         });
-        //TODO set up a session for the admin
-        // res.json(result);
 
       });
     });

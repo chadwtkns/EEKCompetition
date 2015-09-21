@@ -179,11 +179,13 @@ router.route('/:id')
 })
 
 .put(function (req, res, next) {
-  if (!req.body.votes) {
-    return res.json([{voteError: 'No vote was cast'}]);
+  if (req.body.votes === undefined || req.body.email === undefined) {
+    res.json([{voteError: 'No vote was cast, you may be missing an email address'}]);
+    return;
   }
   if (req.signedCookies.rememberme >= 3) {
-    return res.json([{voteError:'You have exceeded your vote limit'}]);
+    res.json([{voteError:'You have exceeded your vote limit'}]);
+    return;
   }
   var voteUpdated = {votes: req.body.votes + 1};
   r.connect(config.database, function (err, conn) {

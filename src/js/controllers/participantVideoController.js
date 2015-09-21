@@ -18,6 +18,10 @@
           votes : votes,
           email : $scope.participantEmail
         };
+        if ($scope.participantEmail === undefined) {
+           $scope.error = "You must include your email address";
+           return;
+        }
        var updatedStuff = updateService.update({ id:$routeParams.videoId }, voteObj);
 //        console.log(up);
         updatedStuff.$promise.then(function(data){
