@@ -2,6 +2,7 @@ var router = require('express').Router();
 
 router.get('/', function (req, res, next) {
   res.json({success: true});
+  console.log(req.headers.range);
 });
 
 router.use('/video', require('./video'));

@@ -4,6 +4,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var path = require('path');
 var config = require('../../config').development;
+var url = require('url');
 
 var cookieValue = 1;
 
@@ -137,6 +138,7 @@ router.param('id', function (req, res, next, id) {
 
 router.route('/:id')
 .get(function (req, res, next) {
+      var videoFileName;
       r.connect(config.database, function (err, conn) {
 
       if (err) {
@@ -153,29 +155,38 @@ router.route('/:id')
           if (err) {
             return next(err);
           }
-//          console.log(result[0].uploadedFileName);
           res.json(result);
-//          var options = {
-//            root: __dirname + '../../../uploads/',
-//            dotfiles: 'deny',
-//            headers: {
-//                'x-timestamp': Date.now(),
-//                'x-sent': true
-//            }
-//          };
-//          res.sendFile(result[0].uploadedFileName, options, function (err) {
-//            if (err) {
-//              console.log(err);
-//              res.status(err.status).end();
-//            }
-//            else {
-//              console.log('Sent:', result[0].uploadedFileName);
-//            }
-//          });
-
+          // videoFileName = result[0].uploadedFileName;
+          // var movie_webm, movie_mp4, movie_ogg;
+          // fs.readFile(path.resolve(__dirname, '../../uploads/', videoFileName), function (err, data) {
+          //     if (err) {
+          //         throw err;
+          //     }
+          //     movie_mp4 = data;
+          //     return movie_mp4;
+          // });
+          // console.log(movie_mp4 + 'some text');
+          // console.log(req.headers['range']);
+          // return;
+          // var total = movie_mp4.length;
+          // var range = req.headers.range;
+          // var positions = range.replace(/bytes=/, "").split("-");
+          // var start = parseInt(positions[0], 10);
+          // var end = positions[1] ? parseInt(positions[1], 10) : total - 1;
+          // var chunksize = (end - start) + 1;
+          // if (reqResource == videoFileName) {
+          //     res.writeHead(206, {
+          //         "Content-Range": "bytes " + start + "-" + end + "/" + total,
+          //             "Accept-Ranges": "bytes",
+          //             "Content-Length": chunksize,
+          //             "Content-Type": "video/quicktime"
+          //     });
+          //     res.end(movie_mp4.slice(start, end + 1), "binary");
+          // }
         });
       });
     });
+
 })
 
 .put(function (req, res, next) {

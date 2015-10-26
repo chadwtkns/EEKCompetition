@@ -13,6 +13,7 @@
 //        };
 //        console.log(data);
       });
+      $scope.streamingVid = videoService.playVideo();
       $scope.videoVotes = function (votes) {
         var voteObj = {
           votes : votes,

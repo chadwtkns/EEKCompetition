@@ -84,9 +84,7 @@ gulp.task('min-js', function() {
 
 // Direct Copy
 gulp.task('copy', function () {
-    gulp.src('img/**').pipe(gulp.dest('www/img'));
-    gulp.src('models/**').pipe(gulp.dest('www/models'));
-    gulp.src('uploads/**/*').pipe(gulp.dest('www/uploads'));
+    gulp.src('src/libs/**').pipe(gulp.dest('www/libs'));
 });
 
 // Watch Files For Changes
@@ -114,4 +112,4 @@ gulp.task('docs', function () {
 });
 
 // Default Task
-gulp.task('default', ['min-html', 'min-css', 'min-js', 'watch']);
+gulp.task('default', ['min-html', 'min-css', 'min-js', 'copy','watch']);
