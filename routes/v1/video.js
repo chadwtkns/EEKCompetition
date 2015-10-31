@@ -8,7 +8,6 @@ var url = require('url');
 
 var cookieValue = 1;
 
-
 router.route('/')
 
 .get(function (req, res, next) {
@@ -155,34 +154,19 @@ router.route('/:id')
           if (err) {
             return next(err);
           }
-          res.json(result);
-          // videoFileName = result[0].uploadedFileName;
-          // var movie_webm, movie_mp4, movie_ogg;
-          // fs.readFile(path.resolve(__dirname, '../../uploads/', videoFileName), function (err, data) {
-          //     if (err) {
-          //         throw err;
-          //     }
-          //     movie_mp4 = data;
-          //     return movie_mp4;
+          // var binaryserver = require('../../server');
+          // binaryserver.on('connection', function(client,result){
+          //   console.log(result);
+          //   var file = fs.createReadStream(__dirname + '/../../uploads/upload_1fd9395cbef5f3bfc22b3ff0af8b9956.mov');
+          //   client.send(file);
           // });
-          // console.log(movie_mp4 + 'some text');
-          // console.log(req.headers['range']);
-          // return;
-          // var total = movie_mp4.length;
-          // var range = req.headers.range;
-          // var positions = range.replace(/bytes=/, "").split("-");
-          // var start = parseInt(positions[0], 10);
-          // var end = positions[1] ? parseInt(positions[1], 10) : total - 1;
-          // var chunksize = (end - start) + 1;
-          // if (reqResource == videoFileName) {
-          //     res.writeHead(206, {
-          //         "Content-Range": "bytes " + start + "-" + end + "/" + total,
-          //             "Accept-Ranges": "bytes",
-          //             "Content-Length": chunksize,
-          //             "Content-Type": "video/quicktime"
-          //     });
-          //     res.end(movie_mp4.slice(start, end + 1), "binary");
-          // }
+          res.videoName = result;
+          var binaryserver = require('../../server');
+            binaryserver.on('connection', function(client){
+              var file = fs.createReadStream(__dirname + '/../../uploads/' + res.videoName[0].uploadedFileName);
+              client.send(file);
+            });
+            res.json(result);
         });
       });
     });

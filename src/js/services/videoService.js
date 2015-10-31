@@ -13,7 +13,7 @@
                       return $resource('/v1/video');
                   },
                   playVideo: function () {
-                    var client = new BinaryClient('ws://localhost:4021/binary-endpoint');
+                    var client = new BinaryClient('ws://localhost:4021');
                       client.on('stream', function(stream, meta){
                         var parts = [];
                         stream.on('data', function(data){
@@ -25,6 +25,7 @@
                           var att = document.createAttribute("controls");
                           vid.setAttributeNode(att);
                           document.body.appendChild(vid);
+                          client.close();
                         });
                       });
                   },

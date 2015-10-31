@@ -8,9 +8,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var session = require('express-session');
-var BinaryServer = require('binaryjs').BinaryServer;
 //var csurf = require('csurf');
 var fs = require('fs');
+var BinaryServer = require('binaryjs').BinaryServer;
+
 var dir = './uploads';
 
 if (!fs.existsSync(dir)){
@@ -30,25 +31,8 @@ app.use(helmet());
 //    extended: true
 //}));
 app.use(bodyParser.json());
-app.use(cookieParser('Metroid Prime is the #1 ga3e of all time'));
-//
-// app.use(session({
-//    secret: 'Metroid Prime is the #1 ga3e of all time',
-//    saveUninitialized: true,
-//    resave: false
-// }));
-//// Initialize Passport!  Also use passport.session() middleware, to support
-//// persistent login sessions (recommended).
-//app.use(passport.initialize());
-//app.use(passport.session());
-//
-//app.use(csurf());
-//
-//app.use(function (req, res, next) {
-//    res.cookie('XSRF-TOKEN', req.csrfToken());
-//  next();
-//});
-//// tells express where to point the server to the front-end resources
+app.use(cookieParser('SOme secret'));
+
 app.use(express.static(__dirname + '/www'));
 
 // start using our API routes
@@ -61,13 +45,13 @@ var server = http.createServer(app).listen(4021, function () {
 
     var port = server.address().port;
 
-    console.log('The party is happening at http://localhost:%d', port);
+    console.log('http://localhost:%d', port);
 });
 
-var binaryserver = new BinaryServer({server: server, path: '/binary-endpoint'});
+var binaryserver = new BinaryServer({server: server});
 
-binaryserver.on('connection', function(client){
-  var file = fs.createReadStream(__dirname + '/uploads/upload_1fd9395cbef5f3bfc22b3ff0af8b9956.mov');
-  console.log(file);
-  client.send(file);
-});
+// binaryserver.on('connection', function(client){
+//   var file = fs.createReadStream(__dirname + '/../../uploads/' + res.videoName[0].uploadedFileName);
+//   client.send(file);
+// });
+module.exports = binaryserver;

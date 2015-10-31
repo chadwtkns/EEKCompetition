@@ -1,4 +1,4 @@
-config = {
+var config = {
   production: {
     database: {
       host: '',
