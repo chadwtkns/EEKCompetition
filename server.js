@@ -48,7 +48,7 @@ var server = http.createServer(app).listen(4021, function () {
     console.log('http://localhost:%d', port);
 });
 
-var binaryserver = new BinaryServer({server: server});
+var binaryserver = new BinaryServer({server: server, path: '/binary-endpoint'});
 
 // binaryserver.on('connection', function(client){
 //   var file = fs.createReadStream(__dirname + '/../../uploads/' + res.videoName[0].uploadedFileName);

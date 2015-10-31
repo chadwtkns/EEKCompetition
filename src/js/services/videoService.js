@@ -13,7 +13,7 @@
                       return $resource('/v1/video');
                   },
                   playVideo: function () {
-                    var client = new BinaryClient('ws://localhost:4021');
+                    var client = new BinaryClient('ws://localhost:4021/binary-endpoint');
                       client.on('stream', function(stream, meta){
                         var parts = [];
                         stream.on('data', function(data){
