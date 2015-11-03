@@ -154,19 +154,24 @@ router.route('/:id')
           if (err) {
             return next(err);
           }
-          // var binaryserver = require('../../server');
-          // binaryserver.on('connection', function(client,result){
-          //   console.log(result);
-          //   var file = fs.createReadStream(__dirname + '/../../uploads/upload_1fd9395cbef5f3bfc22b3ff0af8b9956.mov');
-          //   client.send(file);
-          // });
-          res.videoName = result;
-          var binaryserver = require('../../server');
-            binaryserver.on('connection', function(client){
-              var file = fs.createReadStream(__dirname + '/../../uploads/' + res.videoName[0].uploadedFileName);
-              client.send(file);
-            });
-            res.json(result);
+          var path = __dirname + '/../../uploads/' + result[0].uploadedFileName;
+          var stat = fs.statSync(path);
+          var total = stat.size;
+          // console.log(total);
+          //   var range = req.headers.range;
+          //   var parts = range.replace(/bytes=/, "").split("-");
+          //   var partialstart = parts[0];
+          //   var partialend = parts[1];
+          //
+          //   var start = parseInt(partialstart, 10);
+          //   var end = partialend ? parseInt(partialend, 10) : total-1;
+          //   var chunksize = (end-start)+1;
+          //   console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
+
+            var file = fs.createReadStream(path);
+            res.writeHead(206, { 'Accept-Ranges': 'bytes' ,'Content-Type': 'video/quicktime' });
+            file.pipe(res);
+
         });
       });
     });

@@ -13,6 +13,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
 var notify = require('gulp-notify');
 var sass = require('gulp-ruby-sass');
+var order = require('gulp-order');
 var strip = require('gulp-strip-comments');
 var htmlclean = require('gulp-htmlclean');
 var ngAnnotate = require('gulp-ng-annotate');
@@ -24,6 +25,11 @@ gulp.task('sass', function() {
        console.error('Error!', err.message);
      })
      .pipe(autoprefixer({ browsers: ['last 3 versions'], cascade: false }))
+     .pipe(order([
+         "all.css",
+         "medium.css",
+         "large.css"
+     ]))
      .pipe(concat('style.min.css'))
      .pipe(minifyCSS())
      .pipe(gulp.dest('www/css'));
@@ -84,7 +90,16 @@ gulp.task('min-js', function() {
 
 // Direct Copy
 gulp.task('copy', function () {
-    gulp.src('src/libs/**').pipe(gulp.dest('www/libs'));
+    gulp.src('src/libs/**')
+      .pipe(gulp.dest('www/libs'));
+    gulp.src('src/img/**/*.jpg')
+      .pipe(gulp.dest('www/img'));
+    gulp.src('src/img/**/*.png')
+      .pipe(gulp.dest('www/img'));
+    gulp.src('src/scss/fonts/*')
+      .pipe(gulp.dest('www/css/fonts'));
+    gulp.src('src/img/**/*.svg')
+      .pipe(gulp.dest('www/img'));
 });
 
 // Watch Files For Changes

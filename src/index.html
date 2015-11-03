@@ -5,7 +5,19 @@
   <title>EEK Competition</title>
 </head>
 <body>
+  <div ng-include="'partials/regions/header.html'"></div>
+
+
   <div ng-view></div>
+  <div ng-include="'partials/regions/footer.html'"></div>
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+  integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+  crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
   <!-- stylesheets -->
   <link async rel="stylesheet" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css">
@@ -20,7 +32,7 @@
   <script defer src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-cookies.min.js"></script>
 
   <!-- binaryjs -->
-  <script src="libs/binary.js"></script>
+  <!-- <script src="libs/binary.js"></script> -->
   <!-- our custom code  -->
   <script defer src="js/app.min.js"></script>
 </body>

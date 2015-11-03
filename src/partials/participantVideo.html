@@ -9,7 +9,9 @@
   <source src="{{getIframeSrc(playable)}}" type="video/quicktime">
 </video>
 -->
-<div ng-bind="streamingVid"></div>
+<div ng-bind="streamingVid"><video ng-src=""></video>
+<pre>{{videoTest| json}}</pre>
+</div>
 <div ng-if="error" ng-bind="error"></div>
 </div>
 <input type="email" ng-model="participantEmail">
