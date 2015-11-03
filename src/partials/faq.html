@@ -1,0 +1,14 @@
+<div class="h-t-q-and-a">
+    <h1 class="title">FAQ</h1>
+    <div>
+        <ul class="QandA">
+  <li ng-repeat="qanda in htQandAs">
+     <div ng-class="{'showAns': toggleAns}">
+    <i></i>
+    <h2 analytics-on analytics-category="Questions" analytics-event="FAQ" analytics-label="{{qanda.question}}" ng-click="toggleAns = !toggleAns">{{qanda.question}}</h2>
+    <p class="base ans">{{qanda.answer}}</p>
+    </div>
+  </li>
+</ul>
+    </div>
+</div>
