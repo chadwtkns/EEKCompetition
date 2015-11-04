@@ -1,0 +1,44 @@
+// Transition with vendor prefixes
+@mixin transition($what: all, $speed: .2s, $how: linear, $delay: 0s){
+  -webkit-transition: $what $speed $how $delay;
+  -moz-transition: $what $speed $how $delay;
+  -o-transition: $what $speed $how $delay;
+  -ms-transition: $what $speed $how $delay;
+  transition: $what $speed $how $delay;
+}
+
+@mixin rotation($degrees: 90){
+  -webkit-transform: rotate(#{$degrees}deg);
+  -moz-transform: rotate(#{$degrees}deg);
+  -o-transform: rotate(#{$degrees}deg);
+  -ms-transform: rotate(#{$degrees}deg);
+  transform: rotate(#{$degrees}deg);
+}
+
+@mixin translateAndRotate($transx: 0, $transy:0,$degrees:0){
+  -webkit-transform: translate( $transx , $transy ) rotate(#{$degrees}deg);
+  -moz-transform: translate( $transx , $transy ) rotate(#{$degrees}deg);
+  -o-transform: translate( $transx , $transy ) rotate(#{$degrees}deg);
+  -ms-transform: translate( $transx , $transy) rotate(#{$degrees}deg);
+  transform: translate( $transx , $transy ) rotate(#{$degrees}deg);
+}
+
+
+// Rounded corners
+@mixin roundedAll($corner: 8){
+  -webkit-border-radius:#{$corner}px;
+  -moz-border-radius:#{$corner}px;
+  border-radius:#{$corner}px;
+}
+
+@mixin roundedTop($corner: 8){
+  -webkit-border-radius:#{$corner}px #{$corner}px 0 0;
+  -moz-border-radius:#{$corner}px #{$corner}px 0 0;
+  border-radius:#{$corner}px #{$corner}px 0 0;
+}
+
+@mixin roundedBottom($corner: 8){
+  -webkit-border-radius:0 0 #{$corner}px #{$corner}px;
+  -moz-border-radius:0 0 #{$corner}px #{$corner}px;
+  border-radius:0 0 #{$corner}px #{$corner}px;
+}

@@ -3,9 +3,9 @@
         .factory('competitionService',
             function ($resource) {
                 return {
-                    getCats: function () {
-                        return $resource('/v1/admin/cats');
-                    }
+                  getRealJson: function (fileName) {
+                    return $resource('json/:file.json', {file:fileName});
+                  }
                 };
         });
 }());

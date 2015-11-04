@@ -1,3 +1,5 @@
+@import "../scssimports/mixins.scss";
+
 @font-face {
     font-family: 'bebasregular';
     src: url('fonts/BEBAS___-webfont.eot');
@@ -8,6 +10,9 @@
     font-weight: normal;
     font-style: normal;
 
+}
+body {
+  font-size: 1.1em;
 }
 //-------------- NAV BAR -----------------\\
 .navbar-brand img {
@@ -28,6 +33,9 @@
 }
 .navbar.navbar-default {
   border-bottom: 3px solid #f0b41c;
+}
+.nav-offset {
+  margin-top: 50px;
 }
 //-------------- FOOTER -----------------\\
 footer {
@@ -121,5 +129,86 @@ h1,h2 {
   margin: 50px 0px;
   p {
     font-size: 1.2em;
+  }
+}
+
+.transition{
+  @include transition(all, .6s, ease);
+}
+
+//-------------- FAQ -----------------\\
+.QandA {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    position: relative;
+    padding-bottom: 4px;
+    padding-top: 18px;
+    h2 {
+      font-size: 26px;
+      display: block;
+      margin: 0;
+      padding: 6px;
+      color: #cc423a;
+      cursor: pointer;
+    }
+    i {
+      position: absolute;
+      margin-top: 15px;
+      right: 0;
+      &:before, &:after {
+        content: "";
+        @extend .transition;
+        position: absolute;
+        background-color: #333;
+        width: 3px;
+        height: 9px;
+      }
+      &:before {
+        @include translateAndRotate(-4px, 0px, -45);
+      }
+      &:after {
+        @include translateAndRotate(0px, 0px, 45);
+      }
+    }
+    .base {
+      font-size: 17px;
+      line-height: 1px;
+      position: relative;
+      opacity: 0;
+      margin-top: 0px;
+      color: #333;
+      background-color: #fff;
+      padding: 0px 15px;
+      @include roundedBottom();
+    }
+    .base.ans{
+      @extend .transition;
+    }
+    .showAns {
+      p{
+      margin-top: 0px;
+      line-height: 20px;
+      opacity: 1;
+      padding: 15px 15px;
+      }
+      i {
+        position: absolute;
+        margin-top: 15px;
+        right: 0;
+        &:before, &:after {
+          content: "";
+          @extend .transition;
+          position: absolute;
+        }
+        &:before {
+          @include translateAndRotate(0px, 0px, -45);
+        }
+        &:after {
+          @include translateAndRotate(-4px, 0px, 45);
+        }
+      }
+    }
   }
 }

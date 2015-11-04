@@ -23,6 +23,10 @@
     .when('/video/:videoId', {
       templateUrl: 'partials/participantVideo.html',
       controller: 'participantVideoController'
+    })
+    .when('/faq', {
+      templateUrl: 'partials/faq.html',
+      controller: 'staticContentController'
     });
   });
   angular.module('EEK.controllers', []);

@@ -1,14 +1,17 @@
-<div class="h-t-q-and-a">
-    <h1 class="title">FAQ</h1>
-    <div>
-        <ul class="QandA">
-  <li ng-repeat="qanda in htQandAs">
-     <div ng-class="{'showAns': toggleAns}">
-    <i></i>
-    <h2 analytics-on analytics-category="Questions" analytics-event="FAQ" analytics-label="{{qanda.question}}" ng-click="toggleAns = !toggleAns">{{qanda.question}}</h2>
-    <p class="base ans">{{qanda.answer}}</p>
-    </div>
-  </li>
-</ul>
-    </div>
+<div class="row">
+<div class="col-md-6 col-md-offset-3 nav-offset">
+  <img src="../img/books.jpg" alt="" />
+  <h1 class="title text-center">FAQ</h1>
+  <div>
+    <ul class="QandA">
+      <li ng-repeat="faq in FAQs">
+        <div ng-class="{'showAns': toggleAns}">
+          <i></i>
+          <h2 analytics-on analytics-category="Questions" analytics-event="FAQ" analytics-label="{{faq.question}}" ng-click="toggleAns = !toggleAns">{{faq.question}}</h2>
+          <p class="base ans">{{faq.answer}}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
 </div>

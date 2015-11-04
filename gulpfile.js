@@ -59,7 +59,7 @@ gulp.task('min-html', function() {
 
 // Minify JSON
 gulp.task('min-json', function () {
-    return gulp.src('json/**/*.json')
+    return gulp.src('src/json/**/*.json')
         .pipe(jsonminify())
         .pipe(gulp.dest('www/json'));
 });
@@ -127,4 +127,4 @@ gulp.task('docs', function () {
 });
 
 // Default Task
-gulp.task('default', ['min-html', 'min-css', 'min-js', 'copy','watch']);
+gulp.task('default', ['min-html', 'min-css', 'min-js','min-json', 'copy','watch']);
