@@ -1,4 +1,3 @@
-var http = require('http');
 var express = require('express');
 var app = express();
 //var mongoose = require('mongoose');
@@ -9,15 +8,16 @@ var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var session = require('express-session');
 //var csurf = require('csurf');
+var compression = require('compression');
 var fs = require('fs');
-var BinaryServer = require('binaryjs').BinaryServer;
+var config = require('./config').development;
 
 var dir = './uploads';
 
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
-
+app.use(compression());
 //// uses mongoose connect to our database
 //mongoose.connect('mongodb://localhost/cat-test');
 //require('./auth/passport')(passport); // pass passport for configuration
@@ -31,7 +31,7 @@ app.use(helmet());
 //    extended: true
 //}));
 app.use(bodyParser.json());
-app.use(cookieParser('SOme secret'));
+app.use(cookieParser(config.secret));
 
 app.use(express.static(__dirname + '/www'));
 
@@ -41,7 +41,7 @@ app.use('/', routes);
 // var server = http.createServer(app).listen(4021);
 
 // starts the node/express server
-var server = http.createServer(app).listen(4021, function () {
+var server = app.listen(config.port, function () {
 
     var port = server.address().port;
 

@@ -8,7 +8,7 @@
     $routeProvider
     .when('/', {
       templateUrl: 'partials/home.html'})
-    .when('/upload',{
+    .when('/apply',{
       templateUrl: 'partials/upload.html',
       controller: 'uploadController'
     })
@@ -24,8 +24,28 @@
       templateUrl: 'partials/participantVideo.html',
       controller: 'participantVideoController'
     })
+    .when('/leaderboards', {
+      templateUrl: 'partials/leaderboards.html',
+      controller: 'staticContentController'
+    })
     .when('/faq', {
       templateUrl: 'partials/faq.html',
+      controller: 'staticContentController'
+    })
+    .when('/resources', {
+      templateUrl: 'partials/resources.html',
+      controller: 'staticContentController'
+    })
+    .when('/contact', {
+      templateUrl: 'partials/contact.html',
+      controller: 'staticContentController'
+    })
+    .when('/success', {
+      templateUrl: 'partials/success.html',
+      controller: 'staticContentController'
+    })
+    .when('/about', {
+      templateUrl: 'partials/about.html',
       controller: 'staticContentController'
     });
   });

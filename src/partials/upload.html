@@ -1,22 +1,141 @@
-<div class="uploadForm"><h1>Upload Form</h1>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<div class="uploadForm">
 <!--TODO create service-->
+<div class="row">
+  <img src="../img/apply.jpg">
 
-<form action="/v1/video" method="post" enctype="multipart/form-data">
-  <label for="firstName">First Name:</label>
-  <input type="text" name="firstName" ng-model="uploadVideoForm.firstName">
+  <div class="col-md-6 col-md-offset-3">
+    <h1 class="text-center">Apply</h1>
+    <h2>Rules</h2>
 
-  <label for="lastName">Last Name:</label>
-  <input type="text" name="lastName" ng-model="uploadVideoForm.lastName">
+<p>Videos submissions are due by December 15, 2015
+  You must be a middle school or high school student or a full-time college student to apply.
+  If you are under 18, your parent or guardian must sign this eligibility form. (link to form)
+  Videos must be between 30 seconds - 2 minutes.
+  Click here for official rules. (link to official rules form)
+  PLEASE NOTE: All students under the age of 18 MUST submit a signed Parental Release Form by: (1) Downloading the form here (link); (2) Having a parent or legal guardian sign the form to grant permission for you to enter the contest; and (3) Emailing the form back to empowerchallenge@gmail.com. IF WE DO NOT RECEIVE THIS FORM, WE WILL NOT PUBLISH YOUR VIDEO, AND YOU ARE NOT ELLIGIBLE FOR THE CONTEST.
+</p>
+<p>Be sure to read all contest rules to avoid including content in your video that would cause it to be disqualified.</p>
 
-  <label for="email">Email:</label>
-  <input type="email" name="email" ng-model="uploadVideoForm.email">
+<h2>Judging Criteria</h2>
 
-  <label for="vidUpload">Video Upload:</label>
-  <input type="file" name="file">
+<ul><li>Creativity and Originality</li>
+  <li>Theme development</li>
+  <li>How well does the applicant convey the chosen topic?</li>
+  <li>Is the video attention grabbing?</li>
+  <li>The quality of your video</li>
+  <li>Compliance with the contest rules</li></ul>
+    <h2>Upload Form</h2>
+    <form action="/v1/video" method="post" enctype="multipart/form-data" name="applyForm">
+      <h4>Personal Information</h4>
+      <hr>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" name="firstName" class="form-control" ng-model="applyForm.firstName" placeholder="First Name" pattern="[a-zA-Z\s]+">
+        <span class="help-block">Required</span>
+      </div>
 
-  <input type="submit">
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" name="lastName" class="form-control" ng-model="applyForm.lastName" placeholder="Last Name" pattern="[a-zA-Z\s]+">
+        <span class="help-block">Required</span>
+      </div>
 
-</form>
-{{allVids}}
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" name="email" class="form-control" ng-model="applyForm.email" ng-blur="temporaryStore(email)" placeholder="Email Address">
+        <span class="help-block">Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="address1">Address Line 1:</label>
+        <input type="text" name="address1" class="form-control" ng-blur="temporaryStore(address1)" placeholder="Street Number">
+        <span class="help-block">Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="address2">Address Line 2:</label>
+        <input type="text" name="address2" class="form-control" ng-blur="temporaryStore(address2)" placeholder="Apt. #, Suite #">
+        <span class="help-block">Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="state">State:</label>
+        <input type="text" name="state" class="form-control" ng-blur="temporaryStore(state)" placeholder="State Name" pattern="[a-zA-Z\s]+">
+        <span class="help-block">Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="zip">Zip Code:</label>
+        <input type="text" name="zip" class="form-control" ng-blur="temporaryStore(zip)" placeholder="12345" pattern="[0-9\s]+">
+        <span class="help-block">5 digit code only. Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone" class="form-control" ng-blur="temporaryStore(phone)" placeholder="(XXX) XXX-XXXX">
+      </div>
+
+      <div class="form-group">
+        <label for="schoolName">Name of School:</label>
+        <input type="text" name="schoolName" class="form-control" ng-blur="temporaryStore(schoolName)" placeholder="Name High School or College">
+      </div>
+      <h4>Video Details</h4>
+      <hr>
+      <div class="form-group">
+        <label for="title">Video Title:</label>
+        <input type="text" name="title" class="form-control" ng-blur="temporaryStore(title)" placeholder="Video Title">
+        <span class="help-block">Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Video Category:</label>
+        <select class="form-control" name="category" ng-blur="temporaryStore(category)">
+          <option value="Sex Talks">Sex talks gone wrong</option>
+          <option value="Media">How media images affect kids' daily lives</option>
+          <option value="Strong Family">What makes a family strong</option>
+          <option value="Disconnecting">Benefits of disconnecting online to connect in real life</option>
+          <option value="Negative Porn">The negative consequences of porn</option>
+        </select>
+        <span class="help-block">Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Video Description:</label>
+        <input type="textarea" name="description" class="form-control"
+               ng-model="uploadVideoForm.description"
+               placeholder="Video Description"
+               minlength="200"
+               maxlength="400"
+               ng-blur="temporaryStore(description)">
+        <span class="help-block">Must be a minimum of 200 characters and a maximum of 400 characters. Required</span>
+      </div>
+
+      <div class="form-group">
+        <label for="vidUpload">Video Upload:</label>
+        <input type="file" name="file">
+        <span class="help-block">Required</span>
+      </div>
+
+      <div class="checkbox">
+          <label>
+            <input type="checkbox" name="over13" required> I'm over 13 years old
+          </label>
+      </div>
+
+      <div class="checkbox">
+          <label>
+            <input type="checkbox" required> I agree to the <a href="#">Terms and Conditions</a>
+          </label>
+      </div>
+
+      <div class="g-recaptcha" data-sitekey="6Lc8axATAAAAAL7pk1bUA0gtVNYrJHWvomLr3jAX"></div>
+
+      <input type="submit" class="btn btn-danger" ng-click="addLoading()"><span id="loadingSpan"></span>
+
+    </form>
+  </div>
+</div>
 
 </div>

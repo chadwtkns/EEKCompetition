@@ -6,15 +6,23 @@
     },
       {
         "question": "Q: What type of video should I submit?",
-        "answer": "A: This is your choice. Have fun and be creative."
+        "answer": "A: This is your choice. Have fun and be creative.Video files must be in MOV, MPEG, MPG, MP4, M4V, VOB, FLV, AVI, ASF, DIVX, WMV format. For best results, Videos should be in 16:9 aspect ratio"
     },
       {
         "question": "Q: Who should apply?",
-        "answer": "A: High school seniors who will graduate by July 2016 and any college student who will still be in school thru July 2016."
+        "answer": "A: Middle school or high school students or full-time college students."
     },
       {
         "question": "Q: How much is the scholarship?",
         "answer": "A. $1000 for the 1st place winner."
+    },
+      {
+        "question": "Q: When is the deadline?",
+        "answer": "A. December 15, 2015"
+    },
+      {
+        "question": "Q: Will my friends be able to vote on my video?",
+        "answer": "A. Possibly. After December 15, 2015, the judges will pick the top 10 videos. These videos will be viewable on the site, and the public will be encouraged to vote."
     }
     ]
 }

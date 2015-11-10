@@ -1,4 +1,5 @@
 @import "../scssimports/mixins.scss";
+@import "../scssimports/variables.scss";
 
 @font-face {
     font-family: 'bebasregular';
@@ -11,8 +12,28 @@
     font-style: normal;
 
 }
+html {
+  height: 100%;
+}
+
 body {
-  font-size: 1.1em;
+  position: relative;
+  padding-bottom: 6.3em;
+  min-height: 100%;
+}
+h2 {
+  font-size: 1.6em;
+}
+h1 {
+  font-size: 2.2em;
+}
+.btn-danger {
+  background-color: $primary-red;
+}
+.header-img {
+  position: relative;
+  max-width: 100%;
+  border-radius: 0px 0px 8px 8px;
 }
 //-------------- NAV BAR -----------------\\
 .navbar-brand img {
@@ -32,17 +53,38 @@ body {
   }
 }
 .navbar.navbar-default {
-  border-bottom: 3px solid #f0b41c;
+  border-bottom: 3px solid $primary-yellow;
 }
 .nav-offset {
-  margin-top: 50px;
+  margin-top: 53px;
 }
+.nav-center {
+    margin:0;
+    float:none;
+}
+
+.navbar-inner{
+    text-align:center;
+}
+.mobileLogo img {
+  position: absolute;
+  left: 36%;
+  height: 100px;
+}
+// .navbar-header {
+//   margin-bottom: 50px;
+// }
 //-------------- FOOTER -----------------\\
 footer {
-  padding: 20px 0px;
   font-size: 1.1em;
   background-color: #333;
-  color: #fff;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 1.2em;
+  a {
+    color: #fff;
+  }
   p {
     padding-top: 20px;
     font-size: 0.9em;
@@ -51,14 +93,31 @@ footer {
 }
 
 //-------------- HOMEPAGE -----------------\\
+.homeForm {
+  position: absolute;
+  top: 00%;
+  left: 70%;
+  width: 25%;
+  .homeLabel {
+    color: #fff;
+  }
+  h1 {
+    font-size: 1.4em;
+    color: $primary-yellow;
+  }
+}
+button a {
+  color: #fff;
+}
 
 .heroImage {
   width: 100%;
 
 }
 .homeRedDiagonal {
+  overflow: hidden;
   position: relative;
-  background-color: #cc423a;
+  background-color: $primary-red;
   z-index: -10;
   margin-top: -30px;
   transform:  rotate(358deg) scale(1) skew(-2deg) translate(0px);
@@ -70,7 +129,7 @@ footer {
     font-size: 1.2em;
   }
   h2,p {
-    color: #ffffff;
+    color: #fff;
   }
   img {
     display:block;
@@ -89,14 +148,14 @@ footer {
 .fill {
   position: relative;
   z-index: -11;
-  background-color: #cc423a;
+  background-color: $primary-red;
   height: 50px;
   width: 100%;
 }
 .fill2 {
   position: relative;
   z-index: -11;
-  background-color: #f0b41c;
+  background-color: $primary-yellow;
   height: 50px;
   width: 100%;
 }
@@ -105,7 +164,7 @@ h1,h2 {
 }
 
 .homeYellowDiagonal {
-  background-color: #f0b41c;
+  background-color: $primary-yellow;
   margin-bottom: -30px;
   transform:  rotate(-358deg) scale(1) skew(2deg) translate(0px);
   -webkit-transform:  rotate(-358deg) scale(1) skew(2deg) translate(0px);
@@ -117,12 +176,17 @@ h1,h2 {
     padding: 50px 0px;
 
   }
-  .fa,h2 {
-    transform:  rotate(-2deg) scale(1) skew(-3deg) translate(0px);
-    -webkit-transform:  rotate(-2deg) scale(1) skew(-3deg) translate(0px);
-    -moz-transform: rotate(-2deg) scale(1) skew(-3deg) translate(0px);
-    -o-transform:  rotate(-2deg) scale(1) skew(-3deg) translate(0px);
-    -ms-transform:  rotate(-2deg) scale(1) skew(-3deg) translate(0px);
+  .hashtag {
+    margin-top: -40px;
+    font-size: 1.7em;
+  }
+  .adjust{
+    transform:  rotate(-2deg) scale(1) skew(-1deg) translate(0px);
+    -webkit-transform:  rotate(-2deg) scale(1) skew(-1deg) translate(0px);
+    -moz-transform: rotate(-2deg) scale(1) skew(-1deg) translate(0px);
+    -o-transform:  rotate(-2deg) scale(1) skew(-1deg) translate(0px);
+    -ms-transform:  rotate(-2deg) scale(1) skew(-1deg) translate(0px);
+    margin-bottom: 200px;
   }
 }
 .homeLeaderboards {
@@ -141,6 +205,7 @@ h1,h2 {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-bottom: 3em;
   li {
     position: relative;
     padding-bottom: 4px;
@@ -150,7 +215,7 @@ h1,h2 {
       display: block;
       margin: 0;
       padding: 6px;
-      color: #cc423a;
+      color: $primary-red;
       cursor: pointer;
     }
     i {
@@ -211,4 +276,27 @@ h1,h2 {
       }
     }
   }
+}
+//-------------- ABOUT -----------------\\
+.about {
+  p,li {
+    font-size: 1.2em
+  }
+  .aboutReady {
+    margin: 50px 0px;
+  }
+
+}
+//-------------- APPLY -----------------\\
+.help-block {
+  font-style: oblique;
+  font-size: .875em;
+
+}
+form {
+  margin-bottom: 30px;
+}
+.fa-spinner {
+  font-size: 2em;
+  margin: 0px 15px;
 }

@@ -5,6 +5,11 @@ var fs = require('fs');
 var path = require('path');
 var config = require('../../config').development;
 var url = require('url');
+var vimeo = require('vimeo').Vimeo;
+
+var CLIENT_ID = 'd0c9e3d4fd20e9fad9302801ad70cea5f53d8805';
+var CLIENT_SECRET = 'rQpgDz60DIzZrp+3k9QQ7sHtc9VIW1kMKmSFx9I6JAN/d9FwFowkd22KtXpyJtzYnv5aaWw5qlNQrmUGJWjDLCVM95E4XC8tieg9GlsiM3p6b7yv/PkFkcE+yN1Il7d2';
+var ACCESS_TOKEN = '19b7e19b27e9c8391e4fe71262f667c4';
 
 var cookieValue = 1;
 
@@ -115,13 +120,55 @@ router.route('/')
 
                 fields.votes = 0;
 
-                r.table('videos').insert(fields, {
-                  returnChanges: true
-                }).run(conn, function (err, result) {
-                  if (err) {
-                    return next(err);
-                  }
-                  res.redirect('/#/');
+                var lib = new vimeo(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN);
+
+                lib.access_token = ACCESS_TOKEN;
+                var file_path = __dirname + '/../../uploads/' + fields.uploadedFileName;
+
+                // '/videos/145027801'
+                lib.streamingUpload(file_path, function (err, body, status, headers) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    lib.request({
+                      method: 'PATCH',
+                      path: headers.location,
+                        query: {
+                          name: fields.title,
+                          privacy:{
+                            view:'disable',
+                            add: false,
+                            comments:'nobody'
+                          },
+                        embed: {
+                          buttons: {
+                            like: false,
+                            share: true,
+                            watchlater: false,
+                            embed: false,
+                            hd: false,
+                            fullscreen: true,
+                            scaling: true
+                          },
+                          logos :{
+                            vimeo: false
+                          }
+                        }
+                      }
+                    },function (err, body, status, headers) {
+                      fields.embed = body.embed.html;
+                      if (err) {
+                          return console.log(err);
+                      }
+                      r.table('videos').insert(fields, {
+                        returnChanges: true
+                      }).run(conn, function (err, result) {
+                        if (err) {
+                          return next(err);
+                        }
+                        res.redirect('/#/success');
+                      });
+                    });
                 });
               });
             }

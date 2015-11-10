@@ -27,8 +27,10 @@ gulp.task('sass', function() {
      .pipe(autoprefixer({ browsers: ['last 3 versions'], cascade: false }))
      .pipe(order([
          "all.css",
+         "small.css",
          "medium.css",
-         "large.css"
+         "large.css",
+         "xlarge.css"
      ]))
      .pipe(concat('style.min.css'))
      .pipe(minifyCSS())
@@ -90,8 +92,6 @@ gulp.task('min-js', function() {
 
 // Direct Copy
 gulp.task('copy', function () {
-    gulp.src('src/libs/**')
-      .pipe(gulp.dest('www/libs'));
     gulp.src('src/img/**/*.jpg')
       .pipe(gulp.dest('www/img'));
     gulp.src('src/img/**/*.png')
